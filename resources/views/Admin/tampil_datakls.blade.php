@@ -59,15 +59,13 @@
                     </div>
                 </div>
             </div>
-        
 
             <!-- Data Dosen -->
             <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md mt-6">
-                <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Mahasiswa</h2>
+                <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Kelas</h2>
 
-            
                 <!-- Form Tambah Data -->
-                <a href="/admin/tambah_datamhs" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah</a>
+                <a href="/admin/tambah_datakls" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah</a>
 
                 <!-- Search Bar -->
                 <input type="text" placeholder="Search..." class="w-50 p-2 mb-4 border rounded-lg">
@@ -78,22 +76,18 @@
                         <thead class="bg-gray-200">
                             <tr>
                                 <th class="border p-2">No</th>
-                                <th class="border p-2">NPM</th>
-                                <th class="border p-2">Nama Mahasiswa</th>
-                                <th class="border p-2">Email</th>
-                                <th class="border p-2">Kelas</th>
+                                <th class="border p-2">Kode Kelas</th>
+                                <th class="border p-2">Nama Kelas</th>
                                 <th class="border p-2">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="border p-2 text-center">1</td>
-                                <td class="border p-2 text-center">230202061</td>
-                                <td class="border p-2">Mingyu Kim</td>
-                                <td class="border p-2">mingyu@gmail.com</td>
+                                <td class="border p-2 text-center">23020</td>
                                 <td class="border p-2">C</td>
                                 <td class="border p-2 text-center">
-                                <button><a href="/admin/edit_datamhs" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a></button>
+                                    <button><a href="/admin/edit_datakls" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a></button>
                                     <button class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
                                 </td>
                             </tr>

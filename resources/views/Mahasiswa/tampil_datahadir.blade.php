@@ -13,25 +13,25 @@
             <h1 class="text-xl font-bold mb-5">SiMON</h1>
             <ul>
                 <li class="p-3 hover:bg-red-800 rounded">
-                    <a href="/admin/dashboard">Dashboard</a>
+                    <a href="/mahasiswa/dashboard">Dashboard</a>
                 </li>
                 <li class="p-3 mt-2 hover:bg-red-800 rounded relative group">
                     Master Data ▾
                     <ul class="absolute left-0 top-full bg-red-800 w-full hidden group-hover:block rounded-md shadow-lg">
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datadosen">Data Dosen</a>
+                            <a href="/mahasiswa/tampil_datadosen">Data Dosen</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datamhs">Data Mahasiswa</a>
+                            <a href="/mahasiswa/tampil_datamhs">Data Mahasiswa</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datakls">Data Kelas</a>
+                            <a href="/mahasiswa/tampil_datakls">Data Kelas</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datamatkul">Data Mata Kuliah</a>
+                            <a href="/mahasiswa/tampil_datamatkul">Data Mata Kuliah</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datahadir">Data Kehadiran</a>
+                            <a href="/mahasiswa/tampil_datahadir">Data Kehadiran</a>
                         </li>
                     </ul>
                 </li>
@@ -55,19 +55,15 @@
                     <div class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48 hidden group-hover:block">
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Profil Saya</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Pengaturan</a>
-                        <a href="/admin/login" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</a>
+                        <a href="/mahasiswa/login-mhs" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</a>
                     </div>
                 </div>
             </div>
-        
 
             <!-- Data Dosen -->
             <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md mt-6">
-                <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Mahasiswa</h2>
+                <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Kehadiran</h2>
 
-            
-                <!-- Form Tambah Data -->
-                <a href="/admin/tambah_datamhs" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah</a>
 
                 <!-- Search Bar -->
                 <input type="text" placeholder="Search..." class="w-50 p-2 mb-4 border rounded-lg">
@@ -78,25 +74,46 @@
                         <thead class="bg-gray-200">
                             <tr>
                                 <th class="border p-2">No</th>
-                                <th class="border p-2">NPM</th>
                                 <th class="border p-2">Nama Mahasiswa</th>
-                                <th class="border p-2">Email</th>
-                                <th class="border p-2">Kelas</th>
-                                <th class="border p-2">Aksi</th>
+                                <th class="border p-2">Pertemuan</th>
+                                <th class="border p-2">Status</th>
+                                <th class="border p-2">Kode Matkul</th>
+                                <th class="border p-2">Kode Kelas</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="border p-2 text-center">1</td>
-                                <td class="border p-2 text-center">230202061</td>
-                                <td class="border p-2">Mingyu Kim</td>
-                                <td class="border p-2">mingyu@gmail.com</td>
-                                <td class="border p-2">C</td>
-                                <td class="border p-2 text-center">
-                                <button><a href="/admin/edit_datamhs" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a></button>
-                                    <button class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-                                </td>
+                                <td class="border p-2">Mingyu</td>
+                                <td class="border p-2 text-center">1</td>
+                                <td class="border p-2 text-center">Hadir</td>
+                                <td class="border p-2 text-center">PW001</td>
+                                <td class="border p-2 text-center">TM-2024</td>
                             </tr>
+                            <tr>
+                                <td class="border p-2 text-center">2</td>
+                                <td class="border p-2">Leviathan</td>
+                                <td class="border p-2 text-center">5</td>
+                                <td class="border p-2 text-center">Alpha</td>
+                                <td class="border p-2 text-center">BD002</td>
+                                <td class="border p-2 text-center">TI-2024</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 text-center">3</td>
+                                <td class="border p-2">Wonwoo</td>
+                                <td class="border p-2 text-center">2</td>
+                                <td class="border p-2 text-center">Izin</td>
+                                <td class="border p-2 text-center">AI003</td>
+                                <td class="border p-2 text-center">TL-2024</td>
+
+                            </tr>
+                            <tr>
+                                <td class="border p-2 text-center">4</td>
+                                <td class="border p-2">Miuraichi</td>
+                                <td class="border p-2 text-center">4</td>
+                                <td class="border p-2 text-center">Sakit</td>
+                                <td class="border p-2 text-center">ML004</td>
+                                <td class="border p-2 text-center">TE-2025</td>
                         </tbody>
                     </table>
                 </div>

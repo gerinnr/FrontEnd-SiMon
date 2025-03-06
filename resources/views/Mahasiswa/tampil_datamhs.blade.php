@@ -13,25 +13,25 @@
             <h1 class="text-xl font-bold mb-5">SiMON</h1>
             <ul>
                 <li class="p-3 hover:bg-red-800 rounded">
-                    <a href="/admin/dashboard">Dashboard</a>
+                    <a href="/mahasiswa/dashboard">Dashboard</a>
                 </li>
                 <li class="p-3 mt-2 hover:bg-red-800 rounded relative group">
                     Master Data ▾
                     <ul class="absolute left-0 top-full bg-red-800 w-full hidden group-hover:block rounded-md shadow-lg">
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datadosen">Data Dosen</a>
+                            <a href="/mahasiswa/tampil_datadosen">Data Dosen</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datamhs">Data Mahasiswa</a>
+                            <a href="/mahasiswa/tampil_datamhs">Data Mahasiswa</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datakls">Data Kelas</a>
+                            <a href="/mahasiswa/tampil_datakls">Data Kelas</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datamatkul">Data Mata Kuliah</a>
+                            <a href="/mahasiswa/tampil_datamatkul">Data Mata Kuliah</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_datahadir">Data Kehadiran</a>
+                            <a href="/mahasiswa/tampil_datahadir">Data Kehadiran</a>
                         </li>
                     </ul>
                 </li>
@@ -55,19 +55,16 @@
                     <div class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48 hidden group-hover:block">
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Profil Saya</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Pengaturan</a>
-                        <a href="/admin/login" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</a>
+                        <a href="/mahasiswa/login-mhs" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</a>
                     </div>
                 </div>
             </div>
-        
+      
 
-            <!-- Data Dosen -->
+    
             <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md mt-6">
                 <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Mahasiswa</h2>
 
-            
-                <!-- Form Tambah Data -->
-                <a href="/admin/tambah_datamhs" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah</a>
 
                 <!-- Search Bar -->
                 <input type="text" placeholder="Search..." class="w-50 p-2 mb-4 border rounded-lg">
@@ -82,7 +79,6 @@
                                 <th class="border p-2">Nama Mahasiswa</th>
                                 <th class="border p-2">Email</th>
                                 <th class="border p-2">Kelas</th>
-                                <th class="border p-2">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,10 +88,7 @@
                                 <td class="border p-2">Mingyu Kim</td>
                                 <td class="border p-2">mingyu@gmail.com</td>
                                 <td class="border p-2">C</td>
-                                <td class="border p-2 text-center">
-                                <button><a href="/admin/edit_datamhs" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a></button>
-                                    <button class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-                                </td>
+                                <td class="border p-2 text-center"></td>
                             </tr>
                         </tbody>
                     </table>
