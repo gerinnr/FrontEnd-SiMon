@@ -88,7 +88,6 @@
                                 <td class="border p-2">Mingyu Kim</td>
                                 <td class="border p-2">mingyu@gmail.com</td>
                                 <td class="border p-2">C</td>
-                                <td class="border p-2 text-center"></td>
                             </tr>
                         </tbody>
                     </table>

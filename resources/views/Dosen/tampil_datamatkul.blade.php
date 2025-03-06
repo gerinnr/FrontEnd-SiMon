@@ -85,7 +85,6 @@
                                 <td class="border p-2 text-center">STA01</td>
                                 <td class="border p-2">Statistika</td>
                                 <td class="border p-2">2</td>
-                                <td class="border p-2 text-center"></td>
                             </tr>
                         </tbody>
                     </table>

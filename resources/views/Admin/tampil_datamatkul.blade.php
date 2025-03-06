@@ -75,7 +75,7 @@
                     <table class="w-full border-collapse border border-gray-300">
                         <thead class="bg-gray-200">
                             <tr>
-                                <<th class="border p-2">No</th>
+                                <th class="border p-2">No</th>
                                 <th class="border p-2">Kode Mata Kuliah</th>
                                 <th class="border p-2">Nama Mata Kuliah</th>
                                 <th class="border p-2">SKS</th>

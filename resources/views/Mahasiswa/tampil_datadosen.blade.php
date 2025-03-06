@@ -85,7 +85,6 @@
                                 <td class="border p-2 text-center">123456</td>
                                 <td class="border p-2">Dr. Budi Santoso</td>
                                 <td class="border p-2">Pemrograman Web</td>
-                                <td class="border p-2 text-center"></td>
                             </tr>
                         </tbody>
                     </table>

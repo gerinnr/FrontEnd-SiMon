@@ -72,24 +72,19 @@
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse border border-gray-300">
                         <thead class="bg-gray-200">
-                            <tr>
-                                <th class="border p-2">No</th>
-                                <th class="border p-2">Kode Matakuliah</th>
-                                <th class="border p-2">NPM</th>
-                                <th class="border p-2">Email</th>
-                                <th class="border p-2">NIDN</th>
-                                <th class="border p-2">Kode Kelas</th>
-                            </tr>
+                        <tr>
+                            <th class="border p-2">No</th>
+                            <th class="border p-2">Kode Mata Kuliah</th>
+                            <th class="border p-2">Nama Mata Kuliah</th>
+                            <th class="border p-2">SKS</th>
+                        </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="border p-2 text-center">1</td>
                                 <td class="border p-2 text-center">STA01</td>
-                                <td class="border p-2">230202061</td>
-                                <td class="border p-2">mingyu@gmail.com</td>
-                                <td class="border p-2">0987654</td>
-                                <td class="border p-2">KLS05</td>
-                                <td class="border p-2 text-center"></td>
+                                <td class="border p-2">Statistika</td>
+                                <td class="border p-2">2</td>
                             </tr>
                         </tbody>
                     </table>
