@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\KehadiranController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MatkulController;
+use App\Models\Kehadiran;
+use App\Models\Kelas;
+use App\Models\Mahasiswa;
+use App\Models\Matkul;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,151 +23,94 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
-    return view('Admin.homepage');
+    return view('homepage');
 });
 
-Route::get('/admin/login', function () {
-    return view('Admin.login'); // Sesuaikan dengan path file Blade login
-})->name('admin.login');
+Route::get('/admin/login', [LoginController::class, 'admin_create'])->name('admin.login');
+Route::get('/mahasiswa/login', [LoginController::class, 'mahasiswa_create'])->name('mahasiswa.login');
+Route::get('/dosen/login', [LoginController::class, 'dosen_create'])->name('dosen.login');
 
-Route::get('/admin/dashboard', function () {
-    return view('Admin.dashboard'); // Sesuaikan dengan path file Blade login
-})->name('admin.dashboard');
+// Proses login
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+Route::post('/login/auth', [LoginController::class, 'login'])->name('login.auth');
 
-Route::get('/admin/tampil_datadosen', function () {
-    return view('Admin.tampil_datadosen');
-})->name('admin.tampil_datadosen');
+// Logout
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::get('/admin/tampil_datamhs', function () {
-    return view('Admin.tampil_datamhs');
-})->name('admin.tampil_datamhs');
+// Dashboard berdasarkan level dengan middleware
+Route::middleware(['auth', 'level:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('Admin.dashboard');
+    })->name('admin.dashboard');
 
-Route::get('/admin/tampil_datakls', function () {
-    return view('Admin.tampil_datakls');
-})->name('admin.tampil_datakls');
+       // CRUD Dosen
+       Route::prefix('admin')->group(function () {
+       Route::get('/tampil_dosen', [DosenController::class, 'index'])->name('admin.dosen.index');
+       Route::get('/tambah_dosen', [DosenController::class, 'create'])->name('admin.dosen.create');
+       Route::post('/tambah_dosen', [DosenController::class, 'store'])->name('admin.dosen.store');
+       // Route::get('/{id_user}', [DosenController::class, 'show'])->name('admin.dosen.show');
+       Route::get('/edit_dosen/{nidn}', [DosenController::class, 'edit'])->name('admin.dosen.edit');
+       Route::put('/edit_dosen/{nidn}', [DosenController::class, 'update'])->name('admin.dosen.update');
+       Route::delete('/tampil_dosen/{nidn}', [DosenController::class, 'destroy'])->name('admin.dosen.destroy');
+    });
 
-Route::get('/admin/tampil_datamatkul', function () {
-    return view('Admin.tampil_datamatkul');
-})->name('admin.tampil_datamatkul');
+        //CRUD Mahasiswa
+        Route::prefix('admin')->group(function () {
+        Route::get('/tampil_mhs', [MahasiswaController::class, 'index'])->name('admin.mhs.index');
+        Route::get('/tambah_mhs', [MahasiswaController::class, 'create'])->name('admin.mhs.create');
+        Route::post('/tambah_mhs', [MahasiswaController::class, 'store'])->name('admin.mhs.store');
+        // Route::get('/{id_user}', [MahasiswaController::class, 'show'])->name('admin.mhs.show');
+        Route::get('/edit_mhs/{npm}', [MahasiswaController::class, 'edit'])->name('admin.mhs.edit');
+        Route::put('/edit_mhs/{npm}', [MahasiswaController::class, 'update'])->name('admin.mhs.update');
+        Route::delete('/tampil_mhs/{npm}', [MahasiswaController::class, 'destroy'])->name('admin.mhs.destroy');
+    });
 
-Route::get('/admin/tampil_datahadir', function () {
-    return view('Admin.tampil_datahadir');
-})->name('admin.tampil_datahadir');
+        //CRUD Kelas
+        Route::prefix('admin')->group(function () {
+        Route::get('/tampil_kls', [KelasController::class, 'index'])->name('admin.kls.index');
+        Route::get('/tambah_kls', [KelasController::class, 'create'])->name('admin.kls.create');
+        Route::post('/tambah_kls', [KelasController::class, 'store'])->name('admin.kls.store');
+        // Route::get('/{id_user}', [KelasController::class, 'show'])->name('admin.kls.show');
+        Route::get('/edit_kls/{kode_kelas}', [KelasController::class, 'edit'])->name('admin.kls.edit');
+        Route::put('/edit_kls/{kode_kelas}', [KelasController::class, 'update'])->name('admin.kls.update');
+        Route::delete('/tampil_kls/{kode_kelas}', [KelasController::class, 'destroy'])->name('admin.kls.destroy');
+    });
 
-Route::get('/admin/tambah_datadosen', function () {
-    return view('Admin.tambah_datadosen');
-})->name('admin.tambah_datadosen');
+        //CRUD Matkul
+        Route::prefix('admin')->group(function () {
+        Route::get('/tampil_matkul', [MatkulController::class, 'index'])->name('admin.matkul.index');
+        Route::get('/tambah_matkul', [MatkulController::class, 'create'])->name('admin.matkul.create');
+        Route::post('/tambah_matkul', [MatkulController::class, 'store'])->name('admin.matkul.store');
+        // Route::get('/{id_user}', [MatkulController::class, 'show'])->name('admin.matkul.show');
+        Route::get('/edit_matkul/{kode_matkul}', [MatkulController::class, 'edit'])->name('admin.matkul.edit');
+        Route::put('/edit_matkul/{kode_matkul}', [MatkulController::class, 'update'])->name('admin.matkul.update');
+        Route::delete('/tampil_matkul/{kode_matkul}', [MatkulController::class, 'destroy'])->name('admin.matkul.destroy');
+    });
 
-Route::get('/admin/tambah_datamhs', function () {
-    return view('Admin.tambah_datamhs');
-})->name('admin.tambah_datamhs');
+        //CRUD Kehadiran
+        Route::prefix('admin')->group(function () {
+        Route::get('/tampil_hadir', [KehadiranController::class, 'index'])->name('admin.hadir.index');
+        Route::get('/tambah_hadir', [KehadiranController::class, 'create'])->name('admin.hadir.create');
+        Route::post('/tambah_hadir', [KehadiranController::class, 'store'])->name('admin.hadir.store');
+        // Route::get('/{id_kehadiran}', [KehadiranController::class, 'show'])->name('admin.hadir.show');
+        Route::get('/edit_hadir/{id_kehadiran}', [KehadiranController::class, 'edit'])->name('admin.hadir.edit');
+        Route::put('/edit_hadir/{id_kehadiran}', [KehadiranController::class, 'update'])->name('admin.hadir.update');
+        Route::delete('/tampil_hadir/{id_kehadiran}', [KehadiranController::class, 'destroy'])->name('admin.hadir.destroy');
+    });
+        
+});
 
-Route::get('/admin/tambah_datakls', function () {
-    return view('Admin.tambah_datakls');
-})->name('admin.tambah_datakls');
+// Dashboard berdasarkan level dengan middleware
+Route::middleware(['auth', 'level:dosen'])->group(function () {
+    Route::get('/dosen/dashboard', function () {
+        return view('Dosen.dashboard');
+    })->name('dosen.dashboard');
+});
 
-Route::get('/admin/tambah_datamatkul', function () {
-    return view('Admin.tambah_datamatkul');
-})->name('admin.tambah_datamatkul');
-
-Route::get('/admin/tambah_datahadir', function () {
-    return view('Admin.tambah_datahadir');
-})->name('admin.tambah_datahadir');
-
-Route::get('/admin/edit_datadosen', function () {
-    return view('Admin.edit_datadosen');
-})->name('admin.edit_datadosen');
-
-Route::get('/admin/edit_datamhs', function () {
-    return view('Admin.edit_datamhs');
-})->name('admin.edit_datamhs');
-
-Route::get('/admin/edit_datakls', function () {
-    return view('Admin.edit_datakls');
-})->name('admin.edit_datakls');
-
-Route::get('/admin/edit_datamatkul', function () {
-    return view('Admin.edit_datamatkul');
-})->name('admin.edit_datamatkul');
-
-Route::get('/admin/edit_datahadir', function () {
-    return view('Admin.edit_datahadir');
-})->name('admin.edit_datahadir');
-
-
-
-Route::get('/dosen/dashboard', function () {
-    return view('Dosen.dashboard'); // Sesuaikan dengan path file Blade login
-})->name('dosen.dashboard');
-
-Route::get('/dosen/login-dosen', function () {
-    return view('Dosen.login-dosen'); // Sesuaikan dengan path file Blade login
-})->name('dosen.login-dosen');
-
-Route::get('/dosen/tampil_datadosen', function () {
-    return view('Dosen.tampil_datadosen');
-})->name('dosen.tampil_datadosen');
-
-Route::get('/dosen/tampil_datamhs', function () {
-    return view('Dosen.tampil_datamhs');
-})->name('dosen.tampil_datamhs');
-
-Route::get('/dosen/tampil_datakls', function () {
-    return view('Dosen.tampil_datakls');
-})->name('dosen.tampil_datakls');
-
-Route::get('/dosen/tampil_datamatkul', function () {
-    return view('Dosen.tampil_datamatkul');
-})->name('dosen.tampil_datamatkul');
-
-Route::get('/dosen/tampil_datahadir', function () {
-    return view('Dosen.tampil_datahadir');
-})->name('dosen.tampil_datahadir');
-
-Route::get('/dosen/tambah_datamhs', function () {
-    return view('Dosen.tambah_datamhs');
-})->name('dosen.tambah_datamhs');
-
-Route::get('/dosen/tambah_datahadir', function () {
-    return view('Dosen.tambah_datahadir');
-})->name('dosen.tambah_datahadir');
-
-Route::get('/dosen/edit_datamhs', function () {
-    return view('Dosen.edit_datamhs');
-})->name('dosen.edit_datamhs');
-
-Route::get('/dosen/edit_datahadir', function () {
-    return view('Dosen.edit_datahadir');
-})->name('dosen.edit_datahadir');
-
-
-
-Route::get('/mahasiswa/login-mhs', function () {
-    return view('Mahasiswa.login-mhs'); // Sesuaikan dengan path file Blade login
-})->name('mahasiswa.login-mhs');
-
-Route::get('/mahasiswa/dashboard', function () {
-    return view('Mahasiswa.dashboard'); // Sesuaikan dengan path file Blade login
-})->name('mahasiswa.dashboard');
-
-Route::get('/mahasiswa/tampil_datadosen', function () {
-    return view('Mahasiswa.tampil_datadosen');
-})->name('mahasiswa.tampil_datadosen');
-
-Route::get('/mahasiswa/tampil_datamhs', function () {
-    return view('Mahasiswa.tampil_datamhs');
-})->name('mahasiswa.tampil_datamhs');
-
-Route::get('/mahasiswa/tampil_datakls', function () {
-    return view('Mahasiswa.tampil_datakls');
-})->name('mahasiswa.tampil_datakls');
-
-Route::get('/mahasiswa/tampil_datamatkul', function () {
-    return view('Mahasiswa.tampil_datamatkul');
-})->name('mahasiswa.tampil_datamatkul');
-
-Route::get('/mahasiswa/tampil_datahadir', function () {
-    return view('Mahasiswa.tampil_datahadir');
-})->name('mahasiswa.tampil_datahadir');
+// Dashboard berdasarkan level dengan middleware
+Route::middleware(['auth', 'level:mahasiswa'])->group(function () {
+    Route::get('/mahasiswa/dashboard', function () {
+        return view('Mahasiswa.dashboard');
+    })->name('mahasiswa.dashboard');
+});

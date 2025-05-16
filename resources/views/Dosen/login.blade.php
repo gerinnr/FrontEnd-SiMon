@@ -10,9 +10,10 @@
     <div class="bg-[#e8e8d8] p-10 rounded-lg shadow-lg w-full max-w-3xl h-[70vh] flex flex-col items-center gap-10">
         <h2 class="text-3xl font-bold mb-6">LOGIN DOSEN</h2>
         <div class="flex flex-col md:flex-row items-center gap-10 w-full justify-center">
-            <img src="../assets/img/login-logo.png" alt="Login Illustration" class="w-60">
+            <img src="{{ asset('assets/img/login-logo.png') }}" alt="Login Illustration" class="w-60">
 
-            <form action="/dosen/dashboard" method="GET" class="flex flex-col gap-4 w-64">
+            <form action="{{ route('login.auth') }}" method="POST" class="flex flex-col gap-4 w-64">
+                @csrf
                 <input type="text" id="username" placeholder="Username" class="p-3 border rounded-lg shadow-sm w-full" required>
                 <input type="password" id="password" placeholder="Password" class="p-3 border rounded-lg shadow-sm w-full" required>
 

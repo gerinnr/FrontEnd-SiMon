@@ -18,13 +18,13 @@
             </a>
             </div>
             <div class="text-center">
-            <a href="{{ route('dosen.login-dosen') }}" class="text-center hover:opacity-80">
+            <a href="{{ route('dosen.login') }}" class="text-center hover:opacity-80">
                 <img class="w-24 h-24 mx-auto mb-2" src="../assets/img/dosen-logo.png" alt="Dosen">
                 <p class="text-lg font-semibold">Dosen</p>
             </a>
             </div>
             <div class="text-center">
-            <a href="{{ route('mahasiswa.login-mhs') }}" class="text-center hover:opacity-80">
+            <a href="{{ route('mahasiswa.login') }}" class="text-center hover:opacity-80">
                 <img class="w-24 h-24 mx-auto mb-2" src="../assets/img/mahasiswa-login.png" alt="Mahasiswa">
                 <p class="text-lg font-semibold">Mahasiswa</p>
             </a>

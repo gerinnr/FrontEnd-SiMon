@@ -41,18 +41,23 @@
             <!-- Navbar -->
             <div class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
                 <h2 class="text-lg font-semibold text-gray-800">Sistem Monitoring Kehadiran Mahasiswa</h2>
-                <div class="relative group">
-                    <button class="flex items-center gap-2 focus:outline-none cursor-pointer">
+
+                <!-- Dropdown dengan JavaScript -->
+                <div class="relative" id="dropdownContainer">
+                    <button onclick="toggleDropdown()" class="flex items-center gap-2 focus:outline-none cursor-pointer">
                         <span class="text-sm font-medium text-gray-700">Halo, Selamat Datang !</span>
                         <img src="../assets/img/icon-profil.jpg" alt="Admin" class="w-8 h-8 rounded-full">
                         <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48 hidden group-hover:block">
+                    <div id="dropdownMenu" class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48 hidden z-50">
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Profil Saya</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Pengaturan</a>
-                        <a href="/dosen/login-dosen" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</a>
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</button>
+                        </form>                    
                     </div>
                 </div>
             </div>
@@ -90,5 +95,21 @@
             </div>
         </div>
     </div>
+        <!-- Script Dropdown -->
+    <script>
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const dropdownContainer = document.getElementById('dropdownContainer');
+
+        function toggleDropdown() {
+            dropdownMenu.classList.toggle('hidden');
+        }
+
+        // Tutup dropdown saat klik di luar area dropdown
+        document.addEventListener('click', function(event) {
+            if (!dropdownContainer.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>

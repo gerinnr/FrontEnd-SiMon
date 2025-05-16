@@ -9,16 +9,25 @@
 <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white p-6 rounded-lg shadow-md w-96">
         <h2 class="text-xl font-bold text-center mb-4">Tambah Data Dosen</h2>
-        <form action="" method="POST">
+        <form action="{{ route('admin.dosen.store') }}" method="POST">
+            @csrf
             <label class="block mb-2">NIDN</label>
             <input type="number" name="nidn" class="w-full p-2 border rounded mb-4" required>
 
             <label class="block mb-2">Nama Dosen</label>
             <input type="text" name="nama_dosen" class="w-full p-2 border rounded mb-4" required>
 
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Tambah</button>
+            <label class="block mb-2">Pilih User</label>
+            <select name="id_user" class="w-full p-2 border rounded mb-4" required>
+                <option value="">-- Pilih User --</option>
+                @foreach($users as $u)
+                    <option value="{{ $u['id_user'] }}">{{ $u['username'] }}</option>
+                @endforeach
+            </select>
+
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Tambah Data</button>
         </form>
-        <a href="/admin/tampil_datadosen" class="block text-center mt-4 text-blue-500">Kembali</a>
+        <a href="/admin/tampil_dosen" class="block text-center mt-4 text-blue-500">Kembali</a>
     </div>
 </body>
 </html>

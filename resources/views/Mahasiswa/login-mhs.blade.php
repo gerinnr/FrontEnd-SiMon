@@ -12,7 +12,7 @@
         <div class="flex flex-col md:flex-row items-center gap-10 w-full justify-center">
             <img src="../assets/img/login-logo.png" alt="Login Illustration" class="w-60">
 
-            <form action="/mahasiswa/dashboard" method="GET" class="flex flex-col gap-4 w-64">
+            <form action="/mahasiswa/dashboard" method="POST" class="flex flex-col gap-4 w-64">
                 <input type="text" id="username" placeholder="Username" class="p-3 border rounded-lg shadow-sm w-full" required>
                 <input type="password" id="password" placeholder="Password" class="p-3 border rounded-lg shadow-sm w-full" required>
 
