@@ -26,61 +26,75 @@ class DosenController extends Controller
         return view('admin.tambah_dosen', compact('users'));
     }
 
-    return view('admin.tambah_dosen', ['users' => []])->withErrors(['msg' => 'Gagal mengambil data user']);
+    return view('admin.tambah_dosen', ['users' => []])->withErrors(['msg' => 'Gagal mengambil data user']);
 }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nidn' => 'required',
-            'nama_dosen' => 'required',
-            'id_user' => 'required',
-        ]);
+    public function store(Request $request){
+    $response = Http::asForm()->post('http://localhost:8080/dosen', [
+    'nidn' => $request->nidn,
+    'nama_dosen' => $request->nama_dosen,
+    'id_user' => $request->id_user,
+]);
 
-        $response = Http::asJson()->post('http://localhost:8080/dosen', [
-            'nidn' => $request->nidn,
-            'nama_dosen' => $request->nama_dosen,
-            'id_user' => $request->id_user,
-        ]);
 
         if ($response->successful()) {
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan');
         }
 
-        return back()->withErrors(['msg' => 'Gagal menambahkan dosen'])->withInput();
+        // 💥 Debug responsenya
+        $error = $response->json()['messages']['error'] ?? 'Gagal menambahkan dosen';
+
+return back()->withErrors(['msg' => 'Gagal menambahkan dosen: ' . $error])->withInput();
+
+
     }
 
-    public function edit()
-    {
-        $response = Http::get("http://localhost:8080/dosen");
-        if ($response->successful()) {
-            $dosen = $response->json();
-            return view('admin.edit_dosen', compact('users'));
-        }
-        return redirect()->route('admin.dosen.index', ['users' => []])->withErrors(['msg' => 'Data dosen tidak ditemukan']);
+    public function edit($nidn)
+{
+    // Ambil data dosen berdasarkan NIDN
+    $dosenResponse = Http::get("http://localhost:8080/dosen/{$nidn}");
+
+    // Ambil data user
+    $userResponse = Http::get("http://localhost:8080/user");
+
+    // Cek apakah kedua response berhasil
+    if ($dosenResponse->successful() && $userResponse->successful()) {
+        $dosen = $dosenResponse->json();
+        $users = $userResponse->json();
+
+        return view('admin.edit_dosen', compact('dosen', 'users'));
     }
 
-    public function update(Request $request)
-    {
-        $request->validate([
-            'nidn' => 'required',
-            'nama_dosen' => 'required',
-            'username' => 'required',
-        ]);
+    return redirect()->route('admin.dosen.index')
+        ->withErrors(['msg' => 'Data dosen atau user gagal diambil']);
+}
 
-        $response = Http::post("http://localhost:8080/dosen", [
-            'nidn' => $request->nidn,
-            'nama_dosen' => $request->nama_dosen,
-            'username' => $request->id_user,
 
-        ]);
+    public function update(Request $request, $nidn)
+{
+    // Validasi data
+    $request->validate([
+        'nidn' => 'required|numeric',
+        'nama_dosen' => 'required|string',
+        'id_user' => 'required|exists:user,id_user', // Perbaiki di sini
+    ]);
 
-        if ($response->successful()) {
-            return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil diperbarui');
-        }
+    // Kirim data ke backend CodeIgniter
+    $response = Http::put("http://localhost:8080/dosen/{$nidn}", [
+        'nidn' => $request->nidn,
+        'nama_dosen' => $request->nama_dosen,
+        'id_user' => $request->id_user,
+    ]);
 
-        return back()->withErrors(['msg' => 'Gagal memperbarui data dosen'])->withInput();
+    // Periksa apakah update berhasil
+    if ($response->successful()) {
+        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil diperbarui');
     }
+
+    // Jika gagal, kembalikan pesan error
+    return back()->withErrors(['msg' => 'Gagal memperbarui data dosen'])->withInput();
+}
+
 
     public function destroy($nidn)
     {

@@ -10,7 +10,9 @@
     <div class="flex h-screen">
         <!-- Sidebar -->
         <div class="bg-red-900 text-white w-64 p-5 flex flex-col">
-            <h1 class="text-xl font-bold mb-5">SiMON</h1>
+            <h1 class="text-2xl font-extrabold pl-6 pt-6 pb-4 border-b border-white/20">
+            <span class="text-white">Si</span><span class="text-[#FFF8DC]">MON</span>
+            </h1>
             <ul>
                 <li class="p-3 hover:bg-red-800 rounded">Dashboard</li>
                 <li class="p-3 mt-2 hover:bg-red-800 rounded relative group">
@@ -68,27 +70,27 @@
                     <div class="text-center p-5 border rounded-lg shadow">
                         <div class="text-5xl">👨‍🏫</div>
                         <div class="text-2xl font-bold" id="totalDosen">60</div>
-                        <p class="mt-2">Data Dosen</p>
+                        <p class="mt-2">Total Data Dosen</p>
                     </div>
                     <div class="text-center p-5 border rounded-lg shadow">
                         <div class="text-5xl">🎓</div>
                         <div class="text-2xl font-bold" id="totalMahasiswa">2208</div>
-                        <p class="mt-2">Data Mahasiswa</p>
+                        <p class="mt-2">Total Data Mahasiswa</p>
                     </div>
                     <div class="text-center p-5 border rounded-lg shadow">
                         <div class="text-5xl">📖</div>
                         <div class="text-2xl font-bold" id="totalKelas">30</div>
-                        <p class="mt-2">Data Kelas</p>
+                        <p class="mt-2">Total Data Kelas</p>
                     </div>
                     <div class="text-center p-5 border rounded-lg shadow">
                         <div class="text-5xl">🖥️</div>
                         <div class="text-2xl font-bold" id="totalMataKuliah">24</div>
-                        <p class="mt-2">Data Mata Kuliah</p>
+                        <p class="mt-2">Total Data Mata Kuliah</p>
                     </div>
                     <div class="text-center p-5 border rounded-lg shadow">
                         <div class="text-5xl">📄</div>
                         <div class="text-2xl font-bold" id="totalKehadiran">145</div>
-                        <p class="mt-2">Data Kehadiran</p>
+                        <p class="mt-2">Total Data Kehadiran</p>
                     </div>
                 </div>
             </div>

@@ -9,8 +9,10 @@
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="bg-red-900 text-white w-64 p-5 flex flex-col">
-            <h1 class="text-xl font-bold mb-5">SiMON</h1>
+        <div class="bg-red-900 text-white w-64 p-5 flex flex-col overflow-y-auto h-screen">
+            <h1 class="text-2xl font-extrabold pl-6 pt-6 pb-4 border-b border-white/20">
+            <span class="text-white">Si</span><span class="text-[#FFF8DC]">MON</span>
+            </h1>
             <ul>
                 <li class="p-3 hover:bg-red-800 rounded">
                     <a href="/admin/dashboard">Dashboard</a>
@@ -19,19 +21,19 @@
                     Master Data ▾
                     <ul class="absolute left-0 top-full bg-red-800 w-full hidden group-hover:block rounded-md shadow-lg">
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_dosen">Data Dosen</a>
+                            <a href="{{ route('admin.dosen.index') }}">Data Dosen</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_mhs">Data Mahasiswa</a>
+                            <a href="{{ route('admin.mhs.index') }}">Data Mahasiswa</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_kls">Data Kelas</a>
+                            <a href="{{ route('admin.kls.index') }}">Data Kelas</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_matkul">Data Mata Kuliah</a>
+                            <a href="{{route('admin.matkul.index')}}">Data Mata Kuliah</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="/admin/tampil_hadir">Data Kehadiran</a>
+                            <a href="{{route('admin.hadir.index')}}">Data Kehadiran</a>
                         </li>
                     </ul>
                 </li>
@@ -66,15 +68,15 @@
             </div>
 
             <!-- Data Dosen -->
-            <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md mt-6">
+            <div class="w-full bg-white p-6 rounded-lg shadow-md mt-6">
                 <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Dosen</h2>
                 <!-- Form Tambah Data -->
-                <a href="{{ route('admin.dosen.store') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah Data</a>
+                <a href="{{ route('admin.dosen.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah Data</a>
                 <!-- Search Bar -->
-                <input type="text" id="searchInput" placeholder="Search..." class="w-50 p-2 mb-4 border rounded-lg">
+                <input type="text" id="searchInput" placeholder="Search..." class="w-64 p-2 mb-4 border rounded-lg">
 
                 <!-- Table -->
-                <div class="overflow-x-auto">
+                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse border border-gray-300">
                         <thead class="bg-gray-200">
                             <tr>
@@ -85,7 +87,7 @@
                                 <th class="border p-2">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="dosenTableBody">
                         @foreach ($dosen as $index => $dsn)
                         <tr>
                             <td class="border p-2 text-center">{{ $index + 1 }}</td>
@@ -93,23 +95,29 @@
                             <td class="border p-2">{{ $dsn['nama_dosen'] }}</td>
                             <td class="border p-2">{{ $dsn['username'] }}</td>
                             <td class="border p-2 text-center">
-                            <a href="{{ route('admin.dosen.edit', $dsn['nidn']) }}" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a>
-                            <form action="{{ route('admin.dosen.destroy', $dsn['nidn']) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
-                            </form>
+                                <a href="{{ route('admin.dosen.edit', $dsn['nidn']) }}" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a>
+                                <form action="{{ route('admin.dosen.destroy', $dsn['nidn']) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
+                                </form>
                             </td>
                         </tr>
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
+                    <div class="flex justify-between items-center mt-4">
+                        <button id="prevPage" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500">Back</button>
+                        <span id="pageInfo" class="text-gray-700">Page 1</span>
+                        <button id="nextPage" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500">Next</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-        <!-- Script Dropdown -->
-        <script>
+
+       <!-- Script Dropdown, Search, sama Halaman -->
+ <script>
         const dropdownMenu = document.getElementById('dropdownMenu');
         const dropdownContainer = document.getElementById('dropdownContainer');
 
@@ -117,12 +125,72 @@
             dropdownMenu.classList.toggle('hidden');
         }
 
-        // Tutup dropdown saat klik di luar area dropdown
+        // perintah tutup dropdown kalo klik di luar area dropdown
         document.addEventListener('click', function(event) {
-            if (!dropdownContainer.contains(event.target)) {
-                dropdownMenu.classList.add('hidden');
+        if (!dropdownContainer.contains(event.target) && !event.target.closest('#dropdownContainer')) {
+            dropdownMenu.classList.add('hidden');
+        }
+        });
+
+        // search 
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#dosenTableBody tr');
+
+            rows.forEach(row => {
+                const cells = row.getElementsByTagName('td');
+                const match = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(filter));
+                row.style.display = match ? '' : 'none';
+            });
+        });
+
+        // fungsi halaman
+        document.addEventListener('DOMContentLoaded', function () {
+        const rowsPerPage = 7; // ini buat jumlah baris per halaman
+        const tableBody = document.getElementById('dosenTableBody');
+        const rows = Array.from(tableBody.querySelectorAll('tr'));
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+        const pageInfo = document.getElementById('pageInfo');
+
+        let currentPage = 1;
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            // tampil baris sesuai halaman
+            rows.forEach((row, index) => {
+                row.style.display = (index >= start && index < end) ? '' : 'none';
+            });
+
+            // update info halaman
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+            // buat atur status tombol
+            prevPageBtn.disabled = currentPage === 1;
+            nextPageBtn.disabled = currentPage === totalPages;
+        }
+
+        // ini buat tombol back
+        prevPageBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
             }
         });
+
+        // kalo ini tombol next
+        nextPageBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+
+        // tampil halaman pertama saat load
+        showPage(1);
+    });
         </script>
 </body>
 </html>
