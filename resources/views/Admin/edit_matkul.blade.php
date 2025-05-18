@@ -23,33 +23,28 @@
                 {{ session('error') }}
             </div>
         @endif
-
-        <!-- Error dari validasi Laravel -->
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     
         <form action="{{ route('admin.matkul.update', $matkul['kode_matkul']) }}" method="POST">
         @csrf
-            @method('PUT')
+        @method('PUT')
             <label class="block mb-2">Kode Mata Kuliah</label>
-            <input type="text" name="kode_matkul" class="w-full p-2 border rounded mb-4" required>
+            <input type="text" name="kode_matkul" 
+                   value="{{ old('kode_matkul', $matkul['kode_matkul']) }}" 
+                   class="w-full p-2 border rounded mb-4" required>
 
             <label class="block mb-2">Nama Mata Kuliah</label>
-            <input type="text" name="nama_matkul" class="w-full p-2 border rounded mb-4" required>
+            <input type="text" name="nama_matkul" 
+                   value="{{ old('nama_matkul', $matkul['nama_matkul']) }}" 
+                   class="w-full p-2 border rounded mb-4" required>
 
             <label class="block mb-2">SKS</label>
-            <input type="number" name="sks" class="w-full p-2 border rounded mb-4" required>
+            <input type="number" name="sks" 
+                   value="{{ old('sks', $matkul['sks']) }}" 
+                   class="w-full p-2 border rounded mb-4" required>
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Simpan Perubahan</button>
         </form>
-        <a href="/admin/tampil_matkul" class="block text-center mt-4 text-blue-500">Kembali</a>
+        <a href="{{ route('admin.matkul.index') }}" class="block text-center mt-4 text-blue-500">Kembali</a>
     </div>
 </body>
 </html>

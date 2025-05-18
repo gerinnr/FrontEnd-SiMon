@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tambah Data Kehadiran</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -10,25 +10,14 @@
     <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 class="text-xl font-bold text-center mb-4">Tambah Data Kehadiran</h2>
 
-        <!-- Alert untuk pesan sukses -->
+        <!-- Alert sukses -->
         @if (session('success'))
             <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
                 {{ session('success') }}
             </div>
         @endif
 
-        <!-- Alert untuk pesan error -->
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <!-- Error dari validasi Laravel -->
+        <!-- Alert error -->
         @if ($errors->any())
             <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
                 <ul>
@@ -42,13 +31,15 @@
         <form action="{{ route('admin.hadir.store') }}" method="POST">
             @csrf
 
-            <!-- NPM (Mahasiswa) -->
+            <!-- NPM -->
             <label class="block mb-2">NPM</label>
             <select name="npm" id="npm" class="w-full p-2 border rounded mb-4" required onchange="isiNama()">
                 <option value="">-- Pilih NPM --</option>
                 @foreach ($mahasiswa as $mhs)
-                    <option value="{{ $mhs['npm'] }}" data-nama="{{ $mhs['nama_mahasiswa'] }}">
-                        {{ $mhs['npm'] }}
+                    <option value="{{ $mhs['npm'] }}" 
+                        data-nama="{{ $mhs['nama_mahasiswa'] }}"
+                        {{ old('npm') == $mhs['npm'] ? 'selected' : '' }}>
+                        {{ $mhs['npm'] }} - {{ $mhs['nama_mahasiswa'] }}
                     </option>
                 @endforeach
             </select>
@@ -57,32 +48,33 @@
             <label class="block mb-2">Nama Mahasiswa</label>
             <input type="text" id="nama_mahasiswa" class="w-full p-2 border rounded mb-4 bg-gray-100" readonly>
 
+            <!-- Tanggal -->
             <label class="block mb-2">Tanggal</label>
-            <input type="date" name="tanggal" class="w-full p-2 border rounded mb-4" required>
+            <input type="date" name="tanggal" class="w-full p-2 border rounded mb-4" 
+                value="{{ old('tanggal') }}" required>
 
+            <!-- Pertemuan -->
             <label class="block mb-2">Pertemuan</label>
-            <input type="number" name="pertemuan" class="w-full p-2 border rounded mb-4" required>
+            <input type="number" name="pertemuan" class="w-full p-2 border rounded mb-4" 
+                value="{{ old('pertemuan') }}" required>
 
             <!-- Status -->
             <label class="block mb-2">Status</label>
             <select name="status" class="w-full p-2 border rounded mb-4" required>
                 <option value="">-- Pilih Status --</option>
-                <option value="Hadir">Hadir</option>
-                <option value="Alpha">Alpha</option>
-                <option value="Izin">Izin</option>
-                <option value="Sakit">Sakit</option>
+                <option value="Hadir" {{ old('status') == 'Hadir' ? 'selected' : '' }}>Hadir</option>
+                <option value="Alpha" {{ old('status') == 'Alpha' ? 'selected' : '' }}>Alpha</option>
+                <option value="Izin" {{ old('status') == 'Izin' ? 'selected' : '' }}>Izin</option>
+                <option value="Sakit" {{ old('status') == 'Sakit' ? 'selected' : '' }}>Sakit</option>
             </select>
 
-            <!-- Pilih Kode Matakuliah -->
+            <!-- Mata Kuliah -->
             <label class="block mb-2">Pilih Mata Kuliah</label>
-            <select name="kode_matkul" 
-                    class="w-full p-2 border rounded mb-4 @error('kode_matkul') border-red-500 @enderror" 
-                    required>
+            <select name="kode_matkul" class="w-full p-2 border rounded mb-4 @error('kode_matkul') border-red-500 @enderror" required>
                 <option value="">-- Pilih Mata Kuliah --</option>
                 @foreach($matkul as $m)
-                    <option value="{{ $m['kode_matkul'] }}" 
-                        {{ old('kode_matkul') == $m['kode_matkul'] ? 'selected' : '' }}>
-                        {{ $m['kode_matkul'] }}
+                    <option value="{{ $m['kode_matkul'] }}" {{ old('kode_matkul') == $m['kode_matkul'] ? 'selected' : '' }}>
+                        {{ $m['kode_matkul'] }} - {{ $m['nama_matkul'] ?? '' }}
                     </option>
                 @endforeach
             </select>
@@ -90,20 +82,31 @@
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
 
-            <!-- Dosen (NIDN) -->
+            <!-- Dosen -->
             <label class="block mb-2">Dosen (NIDN)</label>
-            <select name="nidn" id="nidn" class="w-full p-2 border rounded mb-4" required onchange="isiNamaDosen()">
+            <select name="nidn" id="nidn" class="w-full p-2 border rounded mb-4" required>
                 <option value="">-- Pilih Dosen --</option>
                 @foreach ($dosen as $dsn)
-                    <option value="{{ $dsn['nidn'] }}" data-nama="{{ $dsn['nama_dosen'] }}">
-                        {{ $dsn['nidn'] }}
+                    <option value="{{ $dsn['nidn'] }}" {{ old('nidn') == $dsn['nidn'] ? 'selected' : '' }}>
+                        {{ $dsn['nidn'] }} - {{ $dsn['nama_dosen'] }}
                     </option>
                 @endforeach
             </select>
 
+            <!-- Kelas -->
+            <label class="block mb-2">Kelas</label>
+            <select name="kode_kelas" class="w-full p-2 border rounded mb-4" required>
+                <option value="">-- Pilih Kelas --</option>
+                @foreach($kelas as $kls)
+                    <option value="{{ $kls['kode_kelas'] }}" {{ old('kode_kelas') == $kls['kode_kelas'] ? 'selected' : '' }}>
+                        {{ $kls['kode_kelas'] }}
+                    </option>
+                @endforeach
+            </select>
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Tambah Data</button>
         </form>
+
         <a href="{{ route('admin.hadir.index') }}" class="block text-center mt-4 text-blue-500">Kembali</a>
     </div>
 
@@ -114,7 +117,11 @@
         const nama = selectedOption.getAttribute('data-nama') || '';
         document.getElementById('nama_mahasiswa').value = nama;
     }
-</script>
 
+    // Auto isi nama jika ada old('npm') saat load page
+    window.onload = function() {
+        isiNama();
+    };
+    </script>
 </body>
 </html>

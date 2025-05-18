@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
@@ -12,28 +13,30 @@
         <div class="bg-red-900 text-white w-64 p-5 flex flex-col overflow-y-auto h-screen">
             <h1 class="text-2xl font-extrabold pl-6 pt-6 pb-4 border-b border-white/20">
             <span class="text-white">Si</span><span class="text-[#FFF8DC]">MON</span>
-            </h1><h1 class="text-xl font-bold mb-5">SiMON</h1>
+            </h1>
             <ul>
-                <li class="p-3 hover:bg-red-800 rounded">
-                    <a href="/admin/dashboard">Dashboard</a>
+                <li class="rounded">
+                    <a href="/admin/dashboard" class="flex items-center gap-2 p-3 hover:bg-red-800 rounded transition duration-200">
+                        🏠 <span>Dashboard</span>
+                    </a>
                 </li>
                 <li class="p-3 mt-2 hover:bg-red-800 rounded relative group">
-                    Master Data ▾
+                    📂 Master Data ▾
                     <ul class="absolute left-0 top-full bg-red-800 w-full hidden group-hover:block rounded-md shadow-lg">
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="{{ route('admin.dosen.index') }}">Data Dosen</a>
+                            <a href="{{ route('admin.dosen.index') }}">👨‍🏫 Data Dosen</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="{{ route('admin.mhs.index') }}">Data Mahasiswa</a>
+                            <a href="{{ route('admin.mhs.index') }}">🎓 Data Mahasiswa</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="{{ route('admin.kls.index') }}">Data Kelas</a>
+                            <a href="{{ route('admin.kls.index') }}">📖 Data Kelas</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="{{route('admin.matkul.index')}}">Data Mata Kuliah</a>
+                            <a href="{{ route('admin.matkul.index') }}">🖥️ Data Mata Kuliah</a>
                         </li>
                         <li class="pl-6 p-2 hover:bg-red-700 rounded">
-                            <a href="{{route('admin.hadir.index')}}">Data Kehadiran</a>
+                            <a href="{{ route('admin.hadir.index') }}">📄 Data Kehadiran</a>
                         </li>
                     </ul>
                 </li>
@@ -44,9 +47,9 @@
         <div class="flex-1 p-5">
             <!-- Navbar -->
             <div class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
-                <h2 class="text-lg font-semibold text-gray-800">Sistem Monitoring Kehadiran Mahasiswa</h2>
+                <h2 class="text-lg font-semibold text-gray-800">📊 Sistem Monitoring Kehadiran Mahasiswa</h2>
                 
-                <!-- Dropdown dengan JavaScript -->
+                <!-- Dropdown -->
                 <div class="relative" id="dropdownContainer">
                     <button onclick="toggleDropdown()" class="flex items-center gap-2 focus:outline-none cursor-pointer">
                         <span class="text-sm font-medium text-gray-700">Halo, Selamat Datang !</span>
@@ -58,15 +61,17 @@
                     <div id="dropdownMenu" class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48 hidden z-50">
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Profil Saya</a>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-200">Pengaturan</a>
-                        <form action="{{ route('logout') }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin logout?')">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">Log Out</button>
+                            <button type="button" onclick="confirmLogoutSwal()" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-200">
+                                Log Out
+                            </button>
                         </form>                    
                     </div>
                 </div>
             </div>
 
-            <!-- Data Dosen -->
+            <!-- Data Kehadiran -->
             <div class="w-full bg-white p-6 rounded-lg shadow-md mt-6">
                 <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Kehadiran</h2>
                 <!-- Tambah Data -->
@@ -108,7 +113,7 @@
                                 <form action="{{ route('admin.hadir.destroy', $hadir['id_kehadiran']) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded">Hapus</button>
+                                    <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
                                 </form>
                             </td>
                             </tr>
@@ -125,8 +130,27 @@
         </div>
     </div>
 
-        <!-- Script Dropdown, Search, sama Halaman -->
  <script>
+        //konfirmasi logout
+        function confirmLogoutSwal() {
+            Swal.fire({
+                title: 'Yakin ingin logout?',
+                text: "Anda akan keluar dari sesi saat ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('logout-form').submit();
+                }
+                
+            });
+        }
+
+        //dropdown
         const dropdownMenu = document.getElementById('dropdownMenu');
         const dropdownContainer = document.getElementById('dropdownContainer');
 

@@ -51,7 +51,7 @@ class KelasController extends Controller
 
         if ($response->successful()) {
             $kelas = $response->json();
-            return view('admin.edit_kls', compact('kelas'));
+            return view('admin.edit_kls', ['kelas' => $kelas]);
         }
 
         return redirect()->route('admin.kls.index')->withErrors(['msg' => 'Data kelas tidak ditemukan.']);
@@ -61,21 +61,16 @@ class KelasController extends Controller
     // Update data kelas
     public function update(Request $request, $kode_kelas)
     {
-        $validated = $request->validate([
-            'kode_kelas' => 'required',
-            'nama_kelas' => 'required',
+       $response = Http::put("http://localhost:8080/kelas/{$kode_kelas}", [
+            'kode_kelas' => $request->kode_kelas,
+            'nama_kelas' => $request->nama_kelas,
         ]);
 
-      try {
-        $response = Http::put("http://localhost:8080/kelas/{$kode_kelas}", $validated);
-
-        if ($response->successful()) {
-            return redirect()->route('admin.kls.index')->with('success', 'Data kelas berhasil diupdate.');
+        if ($response->status() === 200) {
+            return redirect()->route('admin.kls.index')->with('success', 'Data berhasil diperbarui.');
         }
-        return back()->withErrors(['msg' => 'Gagal mengupdate data kelas'])->withInput();
-            } catch (\Exception $e) {
-        return back()->withErrors(['msg' => 'Server tidak merespons. Silakan coba lagi nanti.'])->withInput();
-    }
+
+        return back()->withErrors(['error' => 'Gagal memperbarui data.'])->withInput();
     }
 
 
