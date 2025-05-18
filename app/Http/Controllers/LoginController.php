@@ -12,13 +12,15 @@ class LoginController extends Controller
     {
         return view('admin.login');
     }
-    public function mahasiswa_create()
-    {
-        return view('mahasiswa.login');
-    }
+
     public function dosen_create()
     {
         return view('dosen.login');
+    }
+
+    public function mahasiswa_create()
+    {
+        return view('mahasiswa.login');
     }
 
 
@@ -41,7 +43,7 @@ class LoginController extends Controller
     }
 
 
-    function login(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'username' => 'required',
@@ -61,10 +63,10 @@ class LoginController extends Controller
             switch ($user->level) {
                 case 'admin':
                     return redirect('/admin/dashboard');
-                case 'mahasiswa':
-                    return redirect('/mahasiswa/dashboard');
                 case 'dosen':
                     return redirect('/dosen/dashboard');
+                case 'mahasiswa':
+                    return redirect('/mahasiswa/dashboard');
                 case 'guest':
                     return redirect('/guest/home');
                 default:

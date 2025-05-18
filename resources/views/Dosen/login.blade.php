@@ -14,8 +14,8 @@
 
             <form action="{{ route('login.auth') }}" method="POST" class="flex flex-col gap-4 w-64">
                 @csrf
-                <input type="text" id="username" placeholder="Username" class="p-3 border rounded-lg shadow-sm w-full" required>
-                <input type="password" id="password" placeholder="Password" class="p-3 border rounded-lg shadow-sm w-full" required>
+                <input type="text" name="username" placeholder="Username" autocomplete="username" class="p-3 border rounded-lg shadow-sm w-full" required>
+                <input type="password" name="password" placeholder="Password" autocomplete="current-password" class="p-3 border rounded-lg shadow-sm w-full" required>
 
                 <div class="flex items-center justify-between text-sm">
                     <label class="flex items-center gap-1">

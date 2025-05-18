@@ -136,7 +136,6 @@
                 if (result.isConfirmed) {
                     document.getElementById('logout-form').submit();
                 }
-                
             });
         }
     </script>

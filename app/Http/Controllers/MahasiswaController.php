@@ -6,21 +6,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
      // Menampilkan semua mahasiswa
      public function index()
      {
-         $response = Http::get('http://localhost:8080/mahasiswa');
- 
-         if ($response->successful()) {
-             $data = $response->json();
-             return view('admin.tampil_mhs', ['mahasiswas' => $data ?? []]);
-         }
- 
-         return view('admin.tampil_mhs', ['mahasiswas' => [], 'error' => 'Gagal mengambil data mahasiswa']);
-     }
+        try {
+            $response = Http::get('http://localhost:8080/mahasiswa');
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                // Cek level user untuk memilih tampilan
+                if (Auth::user()->level === 'admin') {
+                    return view('admin.tampil_mhs', ['mahasiswas' => $data ?? []]);
+                } elseif (Auth::user()->level === 'dosen') {
+                    return view('dosen.tampil_mhs', ['mahasiswas' => $data ?? []]);
+                } else {
+                    return back()->withErrors(['error' => 'Akses ditolak']);
+                }
+            }
+
+            return back()->withErrors(['error' => 'Gagal mengambil data mahasiswa']);
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+    }
 
     // Menampilkan form tambah mahasiswa
     public function create()

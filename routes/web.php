@@ -26,8 +26,8 @@ Route::get('/', function () {
 
 // Login
 Route::get('/admin/login', [LoginController::class, 'admin_create'])->name('admin.login');
-Route::get('/mahasiswa/login', [LoginController::class, 'mahasiswa_create'])->name('mahasiswa.login');
 Route::get('/dosen/login', [LoginController::class, 'dosen_create'])->name('dosen.login');
+Route::get('/mahasiswa/login', [LoginController::class, 'mahasiswa_create'])->name('mahasiswa.login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 Route::post('/login/auth', [LoginController::class, 'login'])->name('login.auth');
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
@@ -95,6 +95,18 @@ Route::middleware(['auth', 'level:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
         return view('Dosen.dashboard');
     })->name('dosen.dashboard');
+
+    Route::resource('/dosen/mahasiswa', MahasiswaController::class);
+
+    Route::resource('/dosen/kehadiran', KehadiranController::class)->names([
+        'index' => 'dosen.hadir.index',
+        'create' => 'dosen.hadir.create',
+        'store' => 'dosen.hadir.store',
+        'show' => 'dosen.hadir.show',
+        'edit' => 'dosen.hadir.edit',
+        'update' => 'dosen.hadir.update',
+        'destroy' => 'dosen.hadir.destroy',
+    ]);
 });
 
 // Mahasiswa Routes
@@ -102,4 +114,8 @@ Route::middleware(['auth', 'level:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/dashboard', function () {
         return view('Mahasiswa.dashboard');
     })->name('mahasiswa.dashboard');
+
+    Route::resource('/mahasiswa/kehadiran', KehadiranController::class)->names([
+        'index' => 'mhs.hadir.index',
+    ]);
 });
