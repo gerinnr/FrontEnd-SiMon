@@ -41,7 +41,7 @@ class DosenController extends Controller
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan');
         }
 
-        // 💥 Debug responsenya
+        // Debug responsenya
         $error = $response->json()['messages']['error'] ?? 'Gagal menambahkan dosen';
 
 return back()->withErrors(['msg' => 'Gagal menambahkan dosen: ' . $error])->withInput();
@@ -76,10 +76,10 @@ return back()->withErrors(['msg' => 'Gagal menambahkan dosen: ' . $error])->with
     $request->validate([
         'nidn' => 'required|numeric',
         'nama_dosen' => 'required|string',
-        'id_user' => 'required|exists:user,id_user', // Perbaiki di sini
+        'id_user' => 'required|exists:user,id_user',
     ]);
 
-    // Kirim data ke backend CodeIgniter
+    // Kirim data ke backend 
     $response = Http::put("http://localhost:8080/dosen/{$nidn}", [
         'nidn' => $request->nidn,
         'nama_dosen' => $request->nama_dosen,

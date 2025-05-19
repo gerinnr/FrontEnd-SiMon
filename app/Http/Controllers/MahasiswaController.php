@@ -49,7 +49,7 @@ class MahasiswaController extends Controller
             return view('admin.tambah_mhs', compact('users', 'kelas'));
         }
 
-        // Jika gagal, arahkan kembali ke halaman sebelumnya dengan pesan error
+        // Jika gagal, kembali ke halaman sebelumnya dengan pesan error
         return back()->withErrors(['msg' => 'Gagal mengambil data user atau kelas']);
     }
 
@@ -65,7 +65,7 @@ class MahasiswaController extends Controller
             'kode_kelas' => 'required|string',
         ]);
 
-        // Kirim data ke API CodeIgniter
+        // Kirim data ke API 
         $response = Http::asForm()->post('http://localhost:8080/mahasiswa', $validatedData);
 
         // Cek respons dari backend

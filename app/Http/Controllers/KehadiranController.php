@@ -69,9 +69,9 @@ class KehadiranController extends Controller
 
         return back()->withErrors(['error' => 'Akses ditolak']);
     }
-    /**
-     * Menyimpan data kehadiran baru (POST)
-     */
+    
+     // Menyimpan data kehadiran baru (POST)
+     
     public function store(Request $request)
     {
         $response = Http::asForm()->post('http://localhost:8080/kehadiran1', $request->all());
@@ -89,7 +89,7 @@ class KehadiranController extends Controller
 
     public function edit($id_kehadiran)
 {
-    // Ambil data kehadiran yang akan diedit
+    // Ambil data kehadiran yang akan di edit
     $response = Http::get("http://localhost:8080/kehadiran1/{$id_kehadiran}");
     if (!$response->successful()) {
         abort(404, 'Data tidak ditemukan');
@@ -111,9 +111,7 @@ class KehadiranController extends Controller
         return back()->withErrors(['error' => 'Akses ditolak']);
 }
 
-    /**
-     * Memperbarui data kehadiran berdasarkan ID (PUT)
-     */
+
 public function update(Request $request, $id_kehadiran)
 {
     $request->validate([
@@ -150,9 +148,8 @@ public function update(Request $request, $id_kehadiran)
         return back()->withErrors(['error' => 'Gagal memperbarui data'])->withInput();
     }
 
-    /**
-     * Menghapus data kehadiran berdasarkan ID (DELETE)
-     */
+    
+    // Menghapus data kehadiran berdasarkan ID (DELETE)
     public function destroy($id_kehadiran)
     {
         $response = Http::delete("http://localhost:8080/kehadiran1/{$id_kehadiran}");
