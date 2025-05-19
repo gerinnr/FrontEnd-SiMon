@@ -65,10 +65,15 @@
             <!-- Data Kehadiran -->
             <div class="w-full bg-white p-6 rounded-lg shadow-md mt-6">
                 <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Kehadiran</h2>
-                <!-- Tambah Data -->
-                <a href="{{ route('dosen.hadir.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah Data</a>
-                <!-- Search Bar -->
-                <input type="text" id="searchInput" placeholder="Search..." class="w-50 p-2 mb-4 border rounded-lg">
+                
+                <div class="flex justify-between mb-4">
+                    <a href="{{ route('dosen.hadir.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-40 text-center">Tambah Data</a>
+                    <!-- Search Bar and Print Button -->
+                    <div class="flex gap-3">
+                        <input type="text" id="searchInput" placeholder="Search..." class="w-50 p-2 border rounded-lg">
+                        <button onclick="printTable()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">🖨️ Cetak</button>
+                    </div>
+                </div>
 
                 <!-- Table -->
                 <div class="overflow-x-auto">
@@ -122,6 +127,16 @@
     </div>
 
  <script>
+        //Cetak
+        function printTable() {
+            const printContent = document.getElementById('printSection').innerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload();
+        }
+        
         //konfirmasi logout
         function confirmLogoutSwal() {
             Swal.fire({

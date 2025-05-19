@@ -71,7 +71,7 @@
                 <option value="">-- Pilih User --</option>
                 @foreach($users as $u)
                     <option value="{{ $u['id_user'] }}" 
-                        {{ old('id_user', $mahasiswa['id_user']) == $u['id_user'] ? 'selected' : '' }}>
+                        {{ old('id_user', $mahasiswa['username']) == $u['username'] ? 'selected' : '' }}>
                         {{ $u['username'] }}
                     </option>
                 @endforeach
@@ -88,7 +88,7 @@
                 <option value="">-- Pilih Kode Kelas --</option>
                 @foreach($kelas as $k)
                     <option value="{{ $k['kode_kelas'] }}" 
-                        {{ old('kode_kelas', $mahasiswa['kode_kelas'] ?? '') == $k['kode_kelas'] ? 'selected' : '' }}>
+                        {{ old('kode_kelas', $mahasiswa['nama_kelas'] ?? '') == $k['nama_kelas'] ? 'selected' : '' }}>
                         {{ $k['kode_kelas'] }}
                     </option>
                 @endforeach

@@ -108,7 +108,7 @@ class MahasiswaController extends Controller
             'npm' => 'required|numeric',
             'nama_mahasiswa' => 'required|string',
             'email' => 'required|email',
-                'id_user' => [
+            'id_user' => [
             'required',
             'numeric',
             Rule::unique('mahasiswa', 'id_user')->ignore($npm, 'npm'), // abaikan data yang sedang diupdate

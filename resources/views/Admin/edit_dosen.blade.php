@@ -59,12 +59,12 @@
 
 
             <!-- Pilih User -->
-            <label class="block mb-2">Pilih User</label>
+            <label class="block mb-2">Username</label>
             <select name="id_user" class="w-full p-2 border rounded mb-4" required>
                 <option value="">-- Pilih User --</option>
                 @foreach($users as $user)
                     <option value="{{ $user['id_user'] }}"
-                        {{ (isset($dosen['id_user']) && $dosen['id_user'] == $user['id_user']) ? 'selected' : '' }}>
+                        {{ old('id_user', $dosen['username'] ?? '') == $user['username'] ? 'selected' : '' }}>
                         {{ $user['username'] }}
                     </option>
                 @endforeach

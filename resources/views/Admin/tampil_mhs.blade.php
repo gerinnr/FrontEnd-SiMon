@@ -74,7 +74,7 @@
 
             <!-- Data Mahasiswa -->
             <div class="w-full bg-white p-6 rounded-lg shadow-md mt-6">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4 text-center">Data Mahasiswa</h2>
+                <h2 class="text-4xl font-semibold text-gray-700 mb-4 text-center">Data Mahasiswa</h2>
                 <!-- Tombol Tambah -->
                 <a href="{{ route('admin.mhs.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-20 text-center">Tambah Data</a>
                 <!-- Search Bar -->

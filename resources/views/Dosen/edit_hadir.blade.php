@@ -72,11 +72,11 @@
             </select>
 
             <!-- Mata Kuliah -->
-            <label class="block mb-2">Pilih Mata Kuliah</label>
+            <label class="block mb-2">Mata Kuliah</label>
             <select name="kode_matkul" class="w-full p-2 border rounded mb-4 @error('kode_matkul') border-red-500 @enderror" required>
                 <option value="">-- Pilih Mata Kuliah --</option>
                 @foreach($matkul as $m)
-                    <option value="{{ $m['kode_matkul'] }}" {{ old('kode_matkul', $kehadiran['kode_matkul'] ?? '') == $m['kode_matkul'] ? 'selected' : '' }}>
+                    <option value="{{ $m['kode_matkul'] }}" {{ old('kode_matkul', $kehadiran['nama_matkul'] ?? '') == $m['nama_matkul'] ? 'selected' : '' }}>
                         {{ $m['kode_matkul'] }} - {{ $m['nama_matkul'] ?? '' }}
                     </option>
                 @endforeach
@@ -86,23 +86,23 @@
             @enderror
 
             <!-- Dosen -->
-            <label class="block mb-2">Dosen (NIDN)</label>
+            <label class="block mb-2">Nama Dosen</label>
             <select name="nidn" id="nidn" class="w-full p-2 border rounded mb-4" required>
                 <option value="">-- Pilih Dosen --</option>
                 @foreach ($dosen as $dsn)
-                    <option value="{{ $dsn['nidn'] }}" {{ old('nidn', $kehadiran['nidn'] ?? '') == $dsn['nidn'] ? 'selected' : '' }}>
+                    <option value="{{ $dsn['nidn'] }}" {{ old('nidn', $kehadiran['nama_dosen'] ?? '') == $dsn['nama_dosen'] ? 'selected' : '' }}>
                         {{ $dsn['nidn'] }} - {{ $dsn['nama_dosen'] ?? '' }}
                     </option>
                 @endforeach
             </select>
 
             <!-- Kelas -->
-            <label class="block mb-2">Kelas</label>
+            <label class="block mb-2">Nama Kelas</label>
             <select name="kode_kelas" class="w-full p-2 border rounded mb-4" required>
                 <option value="">-- Pilih Kelas --</option>
                 @foreach($kelas as $kls)
-                    <option value="{{ $kls['kode_kelas'] }}" {{ old('kode_kelas', $kehadiran['kode_kelas'] ?? '') == $kls['kode_kelas'] ? 'selected' : '' }}>
-                        {{ $kls['kode_kelas'] }}
+                    <option value="{{ $kls['kode_kelas'] }}" {{ old('kode_kelas', $kehadiran['nama_kelas'] ?? '') == $kls['nama_kelas'] ? 'selected' : '' }}>
+                        {{ $kls['nama_kelas'] }}
                     </option>
                 @endforeach
             </select>

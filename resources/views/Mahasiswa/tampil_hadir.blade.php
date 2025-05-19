@@ -98,9 +98,9 @@
                         </tbody>
                     </table>
                     <div class="flex justify-between items-center mt-4">
-                        <button id="prevPage" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500">Back</button>
+                        <button id="prevPage" class="bg-blue-400 text-white px-3 py-1 rounded hover:bg-gray-500">Back</button>
                         <span id="pageInfo" class="text-gray-700">Page 1</span>
-                        <button id="nextPage" class="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500">Next</button>
+                        <button id="nextPage" class="bg-blue-400 text-white px-3 py-1 rounded hover:bg-gray-500">Next</button>
                     </div>
                 </div>
             </div>
