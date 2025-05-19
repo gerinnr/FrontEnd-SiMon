@@ -24,7 +24,7 @@ Setelah berhasil login, pengguna akan diarahkan ke dashboard utama yang berfungs
 3. Manajemen Data (CRUD: Create, Read, Update, Delete)<br>
 Melalui fitur ini, pengguna dapat menambahkan data baru melalui form input yang dilengkapi dengan validasi otomatis, membaca dan menelusuri daftar data dalam tabel yang rapi, mengedit informasi jika diperlukan, dan menghapus data yang sudah tidak relevan. Setiap aksi yang dilakukan pengguna akan langsung disimpan ke dalam sistem secara real-time. Fitur ini membantu menjaga agar seluruh data tetap terorganisir, akurat, dan selalu diperbarui sesuai kebutuhan operasional.
 
-4. Pencarian dan Filter Data
+4. Pencarian dan Filter Data<br>
 Fitur pencarian dan filter membantu pengguna dalam menavigasi data yang jumlahnya banyak. Pengguna dapat dengan mudah mencari data tertentu berdasarkan kata kunci, tanggal, status, atau kategori. Proses pencarian dirancang agar cepat dan efisien, sehingga pengguna tidak perlu menggulir halaman panjang atau membuka data satu per satu.
 
 
