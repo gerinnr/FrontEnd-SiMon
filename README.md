@@ -42,7 +42,7 @@ Panduan ini berisi langkah-langkah lengkap untuk menginstal dan menjalankan proj
     git clone https://github.com/gerinnr/FrontEnd-SiMon.git
     cd simon
     ```
-Atau jika membuat project baru
+    Atau jika membuat project baru <br>
     ```
     composer create-project laravel/laravel simon
     cd simon
