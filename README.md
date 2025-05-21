@@ -39,7 +39,7 @@ Panduan ini berisi langkah-langkah lengkap untuk menginstal dan menjalankan proj
 
 1. Clone Project (jika dari repository)
     ```bash
-    git clone https://github.com/nama-user/simon.git
+    git clone https://github.com/gerinnr/FrontEnd-SiMon.git
     cd simon
     ```
 Atau jika membuat project baru
