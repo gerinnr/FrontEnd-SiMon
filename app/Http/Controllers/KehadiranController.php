@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
@@ -163,5 +164,17 @@ public function update(Request $request, $id_kehadiran)
         }
 
         return back()->withErrors(['error' => 'Gagal menghapus data']);
+    }
+
+    public function exportPdf()
+    {
+        $response = Http::get('http://localhost:8080/kehadiran1');
+        if ($response->successful()) {
+            $kehadiran = collect($response->json());
+            $pdf = Pdf::loadView('pdf.cetak', compact('kehadiran')); 
+            return $pdf->download('kehadiran.pdf');
+        } else {
+            return back()->with('error', 'Gagal mengambil data untuk PDF');
+        }
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MatkulController;
+use App\Models\Kehadiran;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -119,3 +120,5 @@ Route::middleware(['auth', 'level:mahasiswa'])->group(function () {
         'index' => 'mhs.hadir.index',
     ]);
 });
+
+Route::get('/export-pdf', [KehadiranController::class, 'exportPdf'])->name('export.pdf');

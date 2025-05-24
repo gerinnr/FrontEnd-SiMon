@@ -71,9 +71,14 @@
                     <!-- Search Bar and Print Button -->
                     <div class="flex gap-3">
                         <input type="text" id="searchInput" placeholder="Search..." class="w-50 p-2 border rounded-lg">
-                        <button onclick="printTable()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">🖨️ Cetak</button>
+                        <form action="{{ route('export.pdf') }}" method="GET">
+                            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                                🖨️ Cetak
+                            </button>
+                        </form>
                     </div>
                 </div>
+
 
                 <!-- Table -->
                 <div class="overflow-x-auto">

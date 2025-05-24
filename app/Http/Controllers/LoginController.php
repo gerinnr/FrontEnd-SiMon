@@ -53,10 +53,10 @@ class LoginController extends Controller
             'password.required' => 'Password can not be empty',
         ]);
     
-        // Ambil user berdasarkan username
+        // ambil user berdasarkan username
         $user = DB::table('user')->where('username', $request->username)->first();
     
-        if ($user && $user->password === $request->password) { // Cek tanpa hash
+        if ($user && $user->password === $request->password) { 
             Auth::loginUsingId($user->id_user);
     
             // Redirect berdasarkan level
